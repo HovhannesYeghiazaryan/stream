@@ -1,0 +1,53 @@
+<!DOCTYPE html> {% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kubernetes API</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity=
+    "sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+        <div class="reload_button">
+			<a href="/status/">Status</a>
+       	</div>
+    <div class="container container_changed">
+        <h2>Create Stream</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="text" name="clusterUserName" placeholder="Name" class="form-control">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text">Receiver</label>
+                </div>
+                <select name="receiverSelect" class="custom-select">
+                    <option selected disabled hidden="">
+                        Choose...
+                    </option>
+                    {% for file in files_path %}
+                    <option value="{{file}}" name="dataReceiver">
+                        {{ file }}
+                    </option>
+                    {% endfor %}
+                </select>
+                <div class="input-group-prepend">
+                    <label class="input-group-text">Encoder</label>
+                </div>
+                <select name="encoderSelect" class="custom-select">
+                    <option selected disabled hidden="">
+                        Choose...
+                    </option>
+                    {% for file in files_path %}
+                    <option value="{{file}}" name="dataEncoder">
+                        {{ file }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div><button class="btn btn-primary" name="submitBtn">Setup</button>
+        </form>
+    </div>
+    <script src="{% static 'js/base.js' %}"></script>
+</body>
+</html>

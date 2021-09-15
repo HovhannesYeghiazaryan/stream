@@ -1,0 +1,38 @@
+client.CustomObjectsApi
+- create_cluster_custom_object
+- create_namespaced_custom_object
+- delete_cluster_custom_object
+- delete_collection_cluster_custom_object
+- delete_collection_namespaced_custom_object
+- delete_namespaced_custom_object
+- get_cluster_custom_object
+- get_namespaced_custom_object
+- list_cluster_custom_object
+- list_namespaced_custom_object
+- patch_cluster_custom_object
+- patch_namespaced_custom_object
+- replace_cluster_custom_object
+- replace_namespaced_custom_object
+
+Use client.CoreV1Api for: Create, Delete, Replace, Read
+- Service
+- Pod
+- Secret
+- ConfigMap
+- EndPoint
+- Event
+- LimitRange
+- PersistentVolumeClaim
+- ReplicationController
+- ResourceQuota
+- Node
+
+Use client.BatchV1Api for: Create, Delete, Replace, Read
+- Revision
+- DaemonSet
+- Deployment
+- ReplicaSet
+- StatefulSet
+
+Use client.AppsV1Api for: Create, Delete, Replace, Read
+- Jobs

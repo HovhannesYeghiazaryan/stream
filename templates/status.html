@@ -1,0 +1,81 @@
+<!DOCTYPE html> {% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Status</title>
+    <link rel="stylesheet" href="{% static 'css/status.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+
+    {% block content %}
+        <div class="reload_block">
+			<a href="/">Setup</a> {% csrf_token %}
+       		<button type="button" class="reload_button" onclick="reloadPage()">Reload</button>
+       	</div>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Clusters</th>
+                <th scope="col">Pods</th>
+                <th scope="col">Status</th>
+                <th scope="col">Ports</th>
+                <th scope="col">Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for key, value in clusters_metadata.element_uuid.receiver|items %}
+            <tr>
+                <th>{{ value.user_name }}</th>
+                <td>{{ value.cluster_name }}</td>
+                <td>{{ value.pod_name }}</td>
+                <td>{{ value.pod_phase }}</td>
+                <td>
+                    <a href="{{ value.http_proto }}://{{ value.pod_host_ip }}:{{ value.http_port }}" target="_blank">
+                        {{ value.http_proto }}://{{ value.pod_host_ip }}:{{ value.http_port }}
+                    </a>
+                    <br>
+                    <a href="{{ value.rtmp_proto }}://{{ value.pod_host_ip }}:{{ value.rtmp_port }}" target="_blank">
+                        {{ value.rtmp_proto }}://{{ value.pod_host_ip }}:{{ value.rtmp_port }}
+                    </a>
+                </td>
+                 <td>
+                    <button
+                        class="btn btn-danger"
+                        type="button"
+                        onclick="sendUuidValue('{{ key }}')"
+                >
+                    Delete</button>
+                </td>
+            </tr>
+        {% endfor %}
+        {% for key, value in clusters_metadata.element_uuid.encoder|items %}
+            <tr>
+                <th>{{ value.user_name }}</th>
+                <td>{{ value.cluster_name }}</td>
+                <td>{{ value.pod_name }}</td>
+                <td>{{ value.pod_phase }}</td>
+                <td>
+                    <a href="{{ value.proto }}://{{ value.pod_host_ip }}:{{ value.port }}" target="_blank">
+                        {{ value.proto }}://{{ value.pod_host_ip }}:{{ value.port }}
+                    </a>
+                </td>
+                <td>
+                    <button
+                        class="btn btn-danger"
+                        type="button"
+                        onclick="sendUuidValue('{{ key }}')"
+                >
+                    Delete</button>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endblock content %}
+    <script src="{% static 'js/status.js' %}"></script>
+</body>
+</html>
